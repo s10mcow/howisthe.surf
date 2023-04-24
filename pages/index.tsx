@@ -72,6 +72,7 @@ export default function Home() {
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
               We all hate ads.
+              {/* eslint-disable-next-line react/no-unescaped-entities */}
               <br /> Thats why we're here.
               <br /> If you like what you see.
               <br /> Buy me a beer...
