@@ -9,14 +9,27 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@material-ui/core": "^4.12.4",
+    "@material-ui/icons": "^4.11.3",
+    "@material-ui/styles": "^4.11.5",
     "@types/node": "18.16.0",
     "@types/react": "18.0.38",
     "@types/react-dom": "18.0.11",
+    "cloudinary-react": "^1.8.1",
     "eslint": "8.39.0",
     "eslint-config-next": "13.3.1",
+    "hls.js": "^1.4.0",
+    "jotai": "^2.0.4",
+    "netlify-identity-widget": "^1.9.2",
     "next": "13.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-ga": "^3.3.1",
+    "styled-components": "^5.3.10",
     "typescript": "5.0.4"
+  },
+  "devDependencies": {
+    "@types/netlify-identity-widget": "^1.9.3",
+    "@types/styled-components": "^5.1.26"
   }
 }
