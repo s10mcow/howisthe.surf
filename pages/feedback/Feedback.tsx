@@ -67,7 +67,7 @@ const Feedback = ({ toggle, name }) => {
           <CircularProgress />
         ) : (
           <MediaList>
-            {media &&
+            {/* {media &&
               media.length > 0 &&
               media.map(({ data }) =>
                 data.resource_type === "image" ? (
@@ -86,7 +86,7 @@ const Feedback = ({ toggle, name }) => {
                     />
                   </Video>
                 )
-              )}
+              )} */}
             {media && media.length === 0 && (
               <NoMediaCard>
                 <p>No images here!</p>

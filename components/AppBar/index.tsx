@@ -28,6 +28,7 @@ import { useRouter } from "next/router";
 import logo from "./logo.png";
 import NextImage from "next/image";
 const Logo = styled.div`
+  background-image: url(logo);
   background-size: contain;
   background-repeat: no-repeat;
   height: 40px;
@@ -206,9 +207,7 @@ export default function MenuAppBar() {
               aria-label="menu"
               onClick={() => router.push("/")}
             >
-              <Logo className={classes.title}>
-                <NextImage />
-              </Logo>
+              <Logo className={classes.title} />
             </IconButton>
             <LogoText onClick={() => router.push("/")}>howisthe.surf</LogoText>
             {user?.isLoggedIn ? (
@@ -242,7 +241,7 @@ export default function MenuAppBar() {
                 onClick={() => toggleOpen(!isOpen)}
                 color="inherit"
               >
-                {currentLocation === "us" ? <MenuIcon /> : <MenuIcon />}
+                {currentLocation === "fl" ? <MenuIcon /> : <MenuIcon />}
               </IconButton>
             )}
           </Toolbar>
