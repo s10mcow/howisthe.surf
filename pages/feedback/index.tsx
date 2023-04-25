@@ -1,5 +1,5 @@
 import React from "react";
-import Feedback from "./Feedback";
+import Feedback from "@modules/Feedback";
 import { makeStyles } from "@material-ui/core/styles";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
