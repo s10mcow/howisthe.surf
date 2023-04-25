@@ -1991,6 +1991,10 @@ react-is@^16.13.1, react-is@^16.7.0:
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
 
+react-sage@^0.3.16:
+  version "0.3.16"
+  resolved "https://registry.yarnpkg.com/react-sage/-/react-sage-0.3.16.tgz#bd8ba2735ed2bceb0b1e2226ad8588c2acd58dac"
+
 react-side-effect@^2.1.0:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/react-side-effect/-/react-side-effect-2.1.2.tgz#dc6345b9e8f9906dc2eeb68700b615e0b4fe752a"

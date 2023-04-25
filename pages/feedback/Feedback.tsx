@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { FilePicker } from "react-file-picker";
 import { CircularProgress, Button } from "@material-ui/core";
 import { CameraAlt, Home } from "@material-ui/icons";
 import { Transformation, Video } from "cloudinary-react";
@@ -100,7 +99,7 @@ const Feedback = ({ toggle, name }) => {
           <Button className="feedback__back" onClick={toggle}>
             <Home color="white" />
           </Button>
-          {isLoggedIn && (
+          {/* {isLoggedIn && (
             <FilePicker
               maxSize={10}
               dims={{ minWidth: 100, minHeight: 100 }}
@@ -111,7 +110,7 @@ const Feedback = ({ toggle, name }) => {
                 <CameraAlt />
               </Button>
             </FilePicker>
-          )}
+          )} */}
         </footer>
       </FeedbackContainer>
     </>

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import AppBar from "@components/AppBar";
 import styled from "styled-components";
-import { FilePicker } from "react-file-picker";
 import Camera from "@material-ui/icons/CameraAlt";
 import Avatar from "@material-ui/core/Avatar";
 import AccountCircle from "@material-ui/icons/AccountCircle";
@@ -60,7 +59,7 @@ const Profile = () => {
   const imagePicker = React.createRef<HTMLDivElement>();
   const [user] = useAtom(userAtom);
   const openImagePicker = () => imagePicker?.current?.click();
-  const uploadImage = async (file) => {
+  const uploadImage = async (file: any) => {
     setIsUploading(true);
     const formData = new FormData();
 
@@ -85,31 +84,30 @@ const Profile = () => {
             <SpinnerWrapper>
               <CircularProgress />
             </SpinnerWrapper>
-          ) : (
-            <FilePicker
-              maxSize={10}
-              dims={{ minWidth: 100, minHeight: 100 }}
-              onChange={(file) => uploadImage(file)}
-              onError={(errMsg) => console.log(errMsg)}
-            >
-              <div ref={imagePicker}>
-                {user?.image?.public_id ? (
-                  <ProfileImage>
-                    <Image
-                      publicId={user?.image?.public_id}
-                      crop="scale"
-                      width="150"
-                      alt="Profile Image"
-                    />
-                  </ProfileImage>
-                ) : (
-                  <Avatar style={{ width: 150, height: 150 }}>
-                    <AccountCircle style={{ fontSize: 180 }} />
-                  </Avatar>
-                )}
-              </div>
-            </FilePicker>
-          )}
+          ) : // <FilePicker
+          //   maxSize={10}
+          //   dims={{ minWidth: 100, minHeight: 100 }}
+          //   onChange={(file) => uploadImage(file)}
+          //   onError={(errMsg) => console.log(errMsg)}
+          // >
+          //   <div ref={imagePicker}>
+          //     {user?.image?.public_id ? (
+          //       <ProfileImage>
+          //         <Image
+          //           publicId={user?.image?.public_id}
+          //           crop="scale"
+          //           width="150"
+          //           alt="Profile Image"
+          //         />
+          //       </ProfileImage>
+          //     ) : (
+          //       <Avatar style={{ width: 150, height: 150 }}>
+          //         <AccountCircle style={{ fontSize: 180 }} />
+          //       </Avatar>
+          //     )}
+          //   </div>
+          // </FilePicker>
+          null}
           <ProfileIcon onClick={openImagePicker}>
             <Camera />
           </ProfileIcon>
