@@ -1,7 +1,11 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
-import axios from "axios";
-import netlifyIdentity from "netlify-identity-widget";
+import faunadb from "faunadb";
+
+const q = faunadb.query;
+const client = new faunadb.Client({
+  secret: "fnADh_3JLaACAFmN7HAal6Nwe5y9CO-upQyWgSkG",
+});
 
 type Data = {
   name: string;
@@ -16,16 +20,31 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const response = await fetch("/.netlify/functions/media-fetch-all", {
-    method: "GET",
-  });
+  const allMedia = await client
+    .query(q.Paginate(q.Match(q.Ref("indexes/all_media"))))
+    .then(async (response) => {
+      const mediaRefs = response.data;
+      console.log("Media refs", mediaRefs);
+      console.log(`${mediaRefs.length} pieces of media found`);
 
-  return response.json();
-
+      const getAllMediaDataQuery = mediaRefs.map((ref) => {
+        return q.Get(ref);
+      });
+      // then query the refs
+      const allMediaData = await client.query(getAllMediaDataQuery);
+      return allMediaData;
+    })
+    .catch((error) => {
+      console.log("error", error);
+      return {
+        statusCode: 400,
+        body: JSON.stringify(error),
+      };
+    });
   // const {
   //   id,
   //   user_metadata: { full_name },
   // } = netlifyIdentity.currentUser();
 
-  res.status(200).json({ name: "John Doe" });
+  res.status(200).json({ allMedia });
 }

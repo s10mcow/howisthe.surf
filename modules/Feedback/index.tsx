@@ -18,7 +18,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 //@ts-ignore
 const Feedback = ({ toggle, name }) => {
   const [image, setImage] = useState("");
-  const [media] = useAtom(getAllMedia);
+  const [media, setMedia] = useState([]);
+  // const [media] = useAtom(getAllMedia);
   const [isFetchingMedia] = useState(false);
   const user = useAtom(userAtom);
   //@ts-ignore
@@ -26,6 +27,12 @@ const Feedback = ({ toggle, name }) => {
 
   useEffect(() => {
     //TODO:FetchallMedia
+    fetch("/api/getAllMedia").then((res) => {
+      res.json().then((data) => {
+        console.log("FetchallMedia", data.allMedia);
+        setMedia(data.allMedia);
+      });
+    });
   }, []);
 
   //@ts-ignore
@@ -64,26 +71,24 @@ const Feedback = ({ toggle, name }) => {
           <CircularProgress />
         ) : (
           <MediaList>
-            {/* {media &&
-              media.length > 0 &&
-              media.map(({ data }) =>
-                data.resource_type === "image" ? (
-                  <MediaCard key={data.public_id} data={data} />
-                ) : (
-                  <Video
-                    key={data.public_id}
-                    controls
-                    publicId={`${data.public_id}.gif`}
-                    resourceType={data.resource_type}
-                  >
-                    <Transformation
-                      audioCodec="none"
-                      flags="animated"
-                      quality="auto"
-                    />
-                  </Video>
-                )
-              )} */}
+            {media?.map(({ data }) =>
+              data.resource_type === "image" ? (
+                <MediaCard key={data.public_id} data={data} />
+              ) : (
+                <Video
+                  key={data.public_id}
+                  controls
+                  publicId={`${data.public_id}.gif`}
+                  resourceType={data.resource_type}
+                >
+                  <Transformation
+                    audioCodec="none"
+                    flags="animated"
+                    quality="auto"
+                  />
+                </Video>
+              )
+            )}
             {media && media.length === 0 && (
               <NoMediaCard>
                 <p>No images here!</p>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Feedback from "@modules/Feedback";
 import { makeStyles } from "@material-ui/core/styles";
 import Dialog from "@material-ui/core/Dialog";

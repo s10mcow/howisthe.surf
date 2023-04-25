@@ -124,7 +124,12 @@ export default function MediaCard({ data }) {
           <CardContent className={classes.content}>
             <User>
               <Avatar>
-                <Image publicId={userPublicId} crop="scale" width="50" />
+                <Image
+                  publicId={userPublicId}
+                  crop="scale"
+                  width="50"
+                  alt="avatar"
+                />
               </Avatar>
               <div className="User__name">{data.user.name}</div>
             </User>
