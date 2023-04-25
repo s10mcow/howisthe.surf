@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 import axios from "axios";
-import netlifyIdentity from "netlify-identity-widget";
+// import netlifyIdentity from "netlify-identity-widget";
 
 type Data = {
   name: string;
@@ -20,7 +20,7 @@ export default async function handler(
   const formData = req.body;
 
   try {
-    const data = await axios.post(url, formData);
+    const data: any = await axios.post(url, formData);
 
     const media = {
       public_id: data.public_id,

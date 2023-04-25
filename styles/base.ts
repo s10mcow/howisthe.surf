@@ -88,7 +88,7 @@ export default css`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: darkgray;
+
     box-shadow: 0 27px 55px 0 rgba(0, 0, 0, 0.3),
       0 17px 17px 0 rgba(0, 0, 0, 0.15);
     position: relative;
