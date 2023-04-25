@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { CircularProgress, Button } from "@material-ui/core";
 import { CameraAlt, Home } from "@material-ui/icons";
-import { Transformation, Video } from "cloudinary-react";
-import Dialog from "@material-ui/core/Dialog";
+// import { Transformation, Video } from "cloudinary-react";
+// import Dialog from "@material-ui/core/Dialog";
 
 import MediaCard, { NoMediaCard } from "@components/MediaCard";
 import Slide from "@material-ui/core/Slide";
-import {
-  FeedbackContainer,
-  UploadingImage,
-  UploadingImageWrapper,
-  MediaList,
-} from "./styles";
+import { FeedbackContainer, MediaList } from "./styles";
 import { getAllMedia } from "@/atoms/feedback";
 import { useAtom } from "jotai";
 import { userAtom } from "@/atoms/user";
@@ -20,17 +15,20 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
+//@ts-ignore
 const Feedback = ({ toggle, name }) => {
   const [image, setImage] = useState("");
   const [media] = useAtom(getAllMedia);
   const [isFetchingMedia] = useState(false);
   const user = useAtom(userAtom);
+  //@ts-ignore
   const isLoggedIn = user && user.id;
 
   useEffect(() => {
     //TODO:FetchallMedia
   }, []);
 
+  //@ts-ignore
   const createMedia = (file) => {
     const mediaUrl = URL.createObjectURL(file);
     setImage(mediaUrl);
@@ -97,7 +95,7 @@ const Feedback = ({ toggle, name }) => {
 
         <footer className="feedback__footer">
           <Button className="feedback__back" onClick={toggle}>
-            <Home color="white" />
+            <Home />
           </Button>
           {/* {isLoggedIn && (
             <FilePicker
