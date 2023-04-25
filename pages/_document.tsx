@@ -1,7 +1,7 @@
 import React from "react";
 
 import Document, { Html, Head, Main, NextScript } from "next/document";
-import { Helmet } from "react-helmet";
+
 import { ServerStyleSheets } from "@material-ui/styles";
 
 export default class MyDocument extends Document {
@@ -10,7 +10,6 @@ export default class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <meta charSet="utf-8" />
-          <title>howisthe.surf</title>
           <meta name="description" content="Surf cams" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="icon" href="/favicon.ico" />

@@ -44,7 +44,7 @@ const User = styled.article`
 `;
 
 const useStyles = makeStyles(() => ({
-  card: (props) => ({
+  card: (props: { height: number; width: number }) => ({
     marginBottom: 20,
     paddingBottom: `${(props.height / props.width) * 100}%`,
     position: "relative",
@@ -72,6 +72,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+//@ts-ignore
 export default function MediaCard({ data }) {
   const classes = useStyles(data);
   const userPublicId =
@@ -117,6 +118,7 @@ export default function MediaCard({ data }) {
           publicId={data.public_id}
           crop="scale"
           width="700"
+          alt="Surf"
         />
         <CardActionArea>
           <CardContent className={classes.content}>
@@ -132,6 +134,7 @@ export default function MediaCard({ data }) {
                   {formatDistance(new Date(data.created_at), new Date())} ago
                 </Typography>
               )}
+              {/* @ts-ignore */}
               {data.tags.map((tag, key) => (
                 <Typography
                   key={key}
