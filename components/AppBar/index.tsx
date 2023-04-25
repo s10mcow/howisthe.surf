@@ -27,16 +27,9 @@ import { useAtom } from "jotai";
 import { useRouter } from "next/router";
 import logo from "./logo.png";
 import NextImage from "next/image";
-const Logo = styled.div`
-  background-image: url(logo);
-  background-size: contain;
-  background-repeat: no-repeat;
-  height: 40px;
-  width: 40px;
-`;
 
 const LogoText = styled.div`
-  font-family: "Alfa Slab One", cursive;
+  font-family: "Roboto", cursive;
   cursor: pointer;
 `;
 
@@ -207,7 +200,11 @@ export default function MenuAppBar() {
               aria-label="menu"
               onClick={() => router.push("/")}
             >
-              <Logo className={classes.title} />
+              <NextImage
+                src={logo}
+                alt="logo"
+                style={{ width: 40, height: 40 }}
+              />
             </IconButton>
             <LogoText onClick={() => router.push("/")}>howisthe.surf</LogoText>
             {user?.isLoggedIn ? (
