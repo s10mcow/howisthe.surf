@@ -1,20 +1,22 @@
-import netlifyIdentity from "netlify-identity-widget";
+import { UserProvider } from "@auth0/nextjs-auth0/client";
 import type { AppProps } from "next/app";
-import { useEffect } from "react";
 import BaseStyles from "../styles/base-styles";
-import { CloudinaryContext } from "cloudinary-react";
+import Head from "next/head";
 
 export default function App({ Component, pageProps }: AppProps) {
-  useEffect(() => {
-    netlifyIdentity.init();
-  }, []);
+  const { user } = pageProps;
 
   return (
     <>
-      <BaseStyles />
-      <CloudinaryContext cloudName="howisthesurf">
+      <Head>
+        <meta charSet="utf-8" />
+        <meta name="description" content="Surf cams" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
+      <UserProvider user={user}>
+        <BaseStyles />
         <Component {...pageProps} />
-      </CloudinaryContext>
+      </UserProvider>
     </>
   );
 }

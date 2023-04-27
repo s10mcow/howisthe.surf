@@ -20,32 +20,19 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const allMedia = await client
-    .query(q.Paginate(q.Match(q.Ref("indexes/all_media"))))
-    .then(async (response: any) => {
-      const mediaRefs = response.data;
-      console.log("Media refs", mediaRefs);
-      console.log(`${mediaRefs.length} pieces of media found`);
-
-      const getAllMediaDataQuery = mediaRefs.map((ref: any) => {
-        return q.Get(ref);
-      });
-      // then query the refs
-      const allMediaData = await client.query(getAllMediaDataQuery);
-      return allMediaData;
-    })
+  const data = req.body;
+  const mediaItem = { data };
+  const response = await client
+    .query(q.Create(q.Ref("classes/media"), mediaItem))
+    .then((response) => response)
     .catch((error) => {
       console.log("error", error);
+      /* Error! return the error with statusCode 400 */
       return {
         statusCode: 400,
         body: JSON.stringify(error),
       };
     });
-  // const {
-  //   id,
-  //   user_metadata: { full_name },
-  // } = netlifyIdentity.currentUser();
-
   //@ts-ignore
-  res.status(200).json({ allMedia });
+  res.status(200).json({ response });
 }

@@ -1,14 +1,11 @@
-import React, { useState } from "react";
 import AppBar from "@components/AppBar";
-import styled from "styled-components";
-import Camera from "@material-ui/icons/CameraAlt";
-import Avatar from "@material-ui/core/Avatar";
-import AccountCircle from "@material-ui/icons/AccountCircle";
+import styled from "@emotion/styled";
+import Camera from "@mui/icons-material/CameraAlt";
+import React, { useState } from "react";
 
-import { Image } from "cloudinary-react";
-import { CircularProgress } from "@material-ui/core";
-import { useAtom } from "jotai";
 import { userAtom } from "@/atoms/user";
+import { CircularProgress } from "@mui/material";
+import { useAtom } from "jotai";
 import { Config } from "../api/profile";
 
 const ProfileContainer = styled.div`

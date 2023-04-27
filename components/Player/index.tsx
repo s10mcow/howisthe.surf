@@ -1,16 +1,16 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
-import Hls from "hls.js";
-import styled from "styled-components";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
-import Fab from "@material-ui/core/Fab";
-import CloseIcon from "@material-ui/icons/Close";
-import ReactGA from "react-ga";
-import { Button } from "@material-ui/core";
-import { useAtom } from "jotai";
 import { camerasAtom } from "@/atoms/cameras";
+import styled from "@emotion/styled";
+import CloseIcon from "@mui/icons-material/Close";
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import Fab from "@mui/material/Fab";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import Hls from "hls.js";
+import { useAtom } from "jotai";
+import React, { useEffect, useRef, useState } from "react";
+import ReactGA from "react-ga";
 
 interface Beach {
   url: string;

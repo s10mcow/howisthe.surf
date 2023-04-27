@@ -1,20 +1,23 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
+import React, { useMemo } from "react";
+
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
 import { formatDistance } from "date-fns";
-import { Image } from "cloudinary-react";
-import styled from "styled-components";
-import { Avatar } from "@material-ui/core";
-import IconButton from "@material-ui/core/IconButton";
-import Share from "@material-ui/icons/Share";
+import { Cloudinary } from "@cloudinary/url-gen";
+import { AdvancedImage } from "@cloudinary/react";
+
+import styled from "@emotion/styled";
+import { Avatar, CardMedia } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import Share from "@mui/icons-material/Share";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import TextField from "@material-ui/core/TextField";
-import Dialog from "@material-ui/core/Dialog";
-import MuiDialogContent from "@material-ui/core/DialogContent";
-import Button from "@material-ui/core/Button";
+import TextField from "@mui/material/TextField";
+import Dialog from "@mui/material/Dialog";
+import MuiDialogContent from "@mui/material/DialogContent";
+import Button from "@mui/material/Button";
+import NextImage from "next/image";
 
 export const NoMediaCard = styled.article`
   display: flex;
@@ -43,41 +46,61 @@ const User = styled.article`
   }
 `;
 
-const useStyles = makeStyles(() => ({
-  card: (props: { height: number; width: number }) => ({
-    marginBottom: 20,
-    paddingBottom: `${(props.height / props.width) * 100}%`,
-    position: "relative",
-    borderRadius: 0,
-  }),
-  media: {
-    position: "absolute",
-    left: 0,
-    top: 75,
-    width: "100%",
-    userSelect: "none",
-    objectFit: "cover",
-  },
-  content: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    background: "white",
-  },
-  share: {
-    position: "absolute",
-    bottom: 0,
-    right: 0,
-    zIndex: 1,
-  },
-}));
+const StyledCard = styled.div<{ width: number; height: number }>`
+  .card {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 40px;
+    border-radius: 0;
+    position: relative;
+    box-shadow: 0px 0px 50px 10px rgb(0 0 0 / 0.3);
+  }
+
+  .mediaContainer {
+    order: 1;
+    position: relative;
+    padding-bottom: ${(props) => (props.height / props.width) * 100}%;
+  }
+
+  .media {
+    user-select: none;
+    object-fit: cover;
+  }
+
+  .content {
+    order: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    z-index: 1;
+  }
+
+  .share {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+  }
+`;
 
 //@ts-ignore
 export default function MediaCard({ data }) {
-  const classes = useStyles(data);
   const userPublicId =
     data && data.user && data.user.image && data.user.image.public_id;
   const [isCopied, setCopied] = React.useState(false);
+
+  const cld = useMemo(
+    () =>
+      new Cloudinary({
+        cloud: {
+          cloudName: "howisthesurf",
+        },
+      }),
+    []
+  );
+
+  const image = useMemo(() => cld.image(userPublicId), [cld, userPublicId]);
 
   return (
     <>
@@ -104,32 +127,24 @@ export default function MediaCard({ data }) {
         </MuiDialogContent>
       </Dialog>
 
-      <Card className={classes.card}>
-        <IconButton
-          aria-label="share"
-          className={classes.share}
-          onClick={() => setCopied(true)}
-        >
-          <Share style={{ color: "white" }} fontSize="large" />
-        </IconButton>
+      <StyledCard {...data}>
+        <Card className="card">
+          <CardMedia className="mediaContainer">
+            <NextImage className="media" src={data.url} fill alt="Surf" />
+          </CardMedia>
 
-        <Image
-          className={classes.media}
-          publicId={data.public_id}
-          crop="scale"
-          width="700"
-          alt="Surf"
-        />
-        <CardActionArea>
-          <CardContent className={classes.content}>
+          {/* <CardActions> */}
+          <CardContent className="content">
+            <IconButton
+              aria-label="share"
+              className="share"
+              onClick={() => setCopied(true)}
+            >
+              <Share style={{ color: "white" }} fontSize="large" />
+            </IconButton>
             <User>
               <Avatar>
-                <Image
-                  publicId={userPublicId}
-                  crop="scale"
-                  width="50"
-                  alt="avatar"
-                />
+                <AdvancedImage cldImg={image} width={50} height={50} />
               </Avatar>
               <div className="User__name">{data.user.name}</div>
             </User>
@@ -152,8 +167,9 @@ export default function MediaCard({ data }) {
               ))}
             </div>
           </CardContent>
-        </CardActionArea>
-      </Card>
+          {/* </CardActions> */}
+        </Card>
+      </StyledCard>
     </>
   );
 }

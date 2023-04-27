@@ -1,18 +1,17 @@
-import MenuAppBar from "@components/AppBar";
-import Head from "next/head";
-import React, { useEffect, useState } from "react";
 import Player from "@/components/Player/index";
-import { Button } from "@material-ui/core";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
+import MenuAppBar from "@components/AppBar";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import { useEffect, useState } from "react";
 
-import { ForecastWidget } from "@components/ForecastWidget";
-import { useRouter } from "next/router";
 import { getCurrentBeachesAtom } from "@/atoms/beaches";
-import { useAtom } from "jotai";
 import { camerasAtom } from "@/atoms/cameras";
+import { ForecastWidget } from "@components/ForecastWidget";
+import { useAtom } from "jotai";
+import { useRouter } from "next/router";
 
 export default function Home() {
   const [cameras, setCameras] = useAtom(camerasAtom);

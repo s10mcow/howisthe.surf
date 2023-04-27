@@ -1,25 +1,22 @@
-import AppBar from "@material-ui/core/AppBar";
-import Divider from "@material-ui/core/Divider";
-import Drawer from "@material-ui/core/Drawer";
-import IconButton from "@material-ui/core/IconButton";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import Toolbar from "@material-ui/core/Toolbar";
-import { makeStyles } from "@material-ui/core/styles";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import MenuIcon from "@material-ui/icons/Menu";
-import PhotoLibraryIcon from "@material-ui/icons/PhotoLibrary";
-import netlifyIdentity from "netlify-identity-widget";
+import AppBar from "@mui/material/AppBar";
+import Divider from "@mui/material/Divider";
+import Drawer from "@mui/material/Drawer";
+import IconButton from "@mui/material/IconButton";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Toolbar from "@mui/material/Toolbar";
+import { makeStyles } from "@mui/styles";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import MenuIcon from "@mui/icons-material/Menu";
+import PhotoLibraryIcon from "@mui/icons-material/PhotoLibrary";
 import React from "react";
 
-import { Avatar } from "@material-ui/core";
-import lightblue from "@material-ui/core/colors/lightBlue";
-import { CameraAlt, Check } from "@material-ui/icons";
-import { Image } from "cloudinary-react";
-import styled from "styled-components";
+import { Avatar } from "@mui/material";
+import { CameraAlt, Check } from "@mui/icons-material";
+import styled from "@emotion/styled";
 
 import { currentLocationAtom } from "@/atoms/beaches";
 import { userAtom } from "@/atoms/user";
@@ -27,18 +24,26 @@ import { useAtom } from "jotai";
 import { useRouter } from "next/router";
 import logo from "./logo.png";
 import NextImage from "next/image";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 const LogoText = styled.div`
   font-family: "Roboto", cursive;
   cursor: pointer;
 `;
 
-const useStyles = makeStyles((theme) => ({
+const LoginOut = styled.a`
+  all: unset;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
   },
   header: {
-    backgroundColor: lightblue[700],
+    backgroundColor: "#0288d1",
   },
   menuButton: {
     marginRight: "auto",
@@ -61,18 +66,12 @@ const useDrawerStyles = makeStyles({
 export default function MenuAppBar() {
   const classes = useStyles();
   const [isOpen, toggleOpen] = React.useState(false);
-  const [user, setUser] = useAtom(userAtom);
+
   const [currentLocation, setLocation] = useAtom(currentLocationAtom);
-  const netlifyUser = netlifyIdentity.currentUser();
+
   const drawerClasses = useDrawerStyles();
   const router = useRouter();
-  const logOut = () => {
-    netlifyIdentity.logout();
-  };
-
-  const login = () => {
-    netlifyIdentity.open("login");
-  };
+  const { user, isLoading, error } = useUser();
 
   return (
     <>
@@ -84,16 +83,16 @@ export default function MenuAppBar() {
           onKeyDown={() => toggleOpen(false)}
         >
           <List>
-            {user?.isLoggedIn && (
+            {user && (
               <>
                 <ListItem button onClick={() => router.push("/profile")}>
                   <ListItemIcon>
-                    {user?.image?.public_id ? (
+                    {user?.picture ? (
                       <Avatar>
-                        <Image
-                          publicId={user?.image.public_id}
-                          crop="scale"
-                          width="50"
+                        <NextImage
+                          src={user?.picture}
+                          width="40"
+                          height="40"
                           alt="profile picture"
                         />
                       </Avatar>
@@ -101,12 +100,12 @@ export default function MenuAppBar() {
                       <AccountCircleIcon />
                     )}
                   </ListItemIcon>
-                  <ListItemText primary={`Welcome ${user.name}!`} />
+                  <ListItemText primary={user.nickname} />
                 </ListItem>
                 <Divider />
               </>
             )}
-            {!user?.isLoggedIn && (
+            {!user && (
               <ListItem button onClick={() => router.push("/profile")}>
                 <ListItemIcon>
                   <PhotoLibraryIcon />
@@ -171,20 +170,24 @@ export default function MenuAppBar() {
           </List>
           <Divider />
           <List>
-            {user?.isLoggedIn && (
-              <ListItem button onClick={logOut}>
-                <ListItemIcon>
-                  <ExitToAppIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Log out"} />
+            {user && (
+              <ListItem button>
+                <LoginOut href="/api/auth/logout">
+                  <ListItemIcon>
+                    <ExitToAppIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={"Log out"} />
+                </LoginOut>
               </ListItem>
             )}
-            {!user?.isLoggedIn && (
-              <ListItem button onClick={login}>
-                <ListItemIcon>
-                  <AccountCircleIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Log in"} />
+            {!user && (
+              <ListItem button>
+                <LoginOut href="/api/auth/login">
+                  <ListItemIcon>
+                    <AccountCircleIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={"Log in"} />
+                </LoginOut>
               </ListItem>
             )}
           </List>
@@ -200,14 +203,10 @@ export default function MenuAppBar() {
               aria-label="menu"
               onClick={() => router.push("/")}
             >
-              <NextImage
-                src={logo}
-                alt="logo"
-                style={{ width: 40, height: 40 }}
-              />
+              <NextImage src={logo} alt="logo" width="40" height="40" />
             </IconButton>
             <LogoText onClick={() => router.push("/")}>howisthe.surf</LogoText>
-            {user?.isLoggedIn ? (
+            {user ? (
               <IconButton
                 style={{ marginLeft: "auto" }}
                 aria-label="account of current user"
@@ -216,12 +215,12 @@ export default function MenuAppBar() {
                 onClick={() => toggleOpen(!isOpen)}
                 color="inherit"
               >
-                {user?.image?.public_id ? (
+                {user?.picture ? (
                   <Avatar>
-                    <Image
-                      publicId={user?.image.public_id}
-                      crop="scale"
-                      width="55"
+                    <NextImage
+                      src={user?.picture}
+                      width="40"
+                      height="40"
                       alt="profile picture"
                     />
                   </Avatar>
