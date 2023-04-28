@@ -1,5 +1,4 @@
 import { atom } from "jotai";
-import { User as NetlifyUser } from "netlify-identity-widget";
 
 const User = {
   name: "",
@@ -9,3 +8,5 @@ const User = {
 };
 
 export const userAtom = atom(User);
+
+export const showModalAtom = atom(false);

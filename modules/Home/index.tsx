@@ -16,6 +16,7 @@ import { camerasAtom } from "@/atoms/cameras";
 import { ForecastWidget } from "@components/ForecastWidget";
 import { useAtom } from "jotai";
 import { useRouter } from "next/router";
+import { showModalAtom } from "@/atoms/user";
 
 export default function Home() {
   const [cameras, setCameras] = useAtom(camerasAtom);
@@ -30,6 +31,7 @@ export default function Home() {
   const router = useRouter();
   const [showModal, setShowModal] = useState(false);
   const [beaches] = useAtom(getCurrentBeachesAtom);
+  const [isModalShown, setShownModal] = useAtom(showModalAtom);
 
   //@ts-ignore
   const setSelectedFeedback = (selectedFeedback) => true;
@@ -41,6 +43,7 @@ export default function Home() {
   };
   const handleClose = () => {
     setOpen(false);
+    setShownModal(true);
   };
 
   const buyBeer = () => {
@@ -59,8 +62,10 @@ export default function Home() {
   };
 
   useEffect(() => {
-    setOpen(showModal);
-  }, [showModal]);
+    if (!isModalShown) {
+      setOpen(cameras?.[currentLocation].length === 2);
+    }
+  }, [cameras, currentLocation, isModalShown, setShownModal]);
 
   return (
     <>
