@@ -12,6 +12,10 @@ const nextConfig = {
         hostname: "res.cloudinary.com",
         pathname: "/howisthesurf/image/upload/**/**",
       },
+      {
+        hostname: "lh3.googleusercontent.com",
+        pathname: "/**/**",
+      },
     ],
   },
 };

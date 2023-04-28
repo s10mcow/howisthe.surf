@@ -11,7 +11,11 @@ import Hls from "hls.js";
 import { useAtom } from "jotai";
 import React, { useEffect, useRef, useState } from "react";
 import ReactGA from "react-ga";
-
+import {
+  beachTypes,
+  currentLocationAtom,
+  getCurrentBeachesAtom,
+} from "@/atoms/beaches";
 interface Beach {
   url: string;
   name: string;
@@ -42,14 +46,17 @@ const Player: React.FC<PlayerProps> = ({
   const [showError, setShowError] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [_, setCameras] = useAtom(camerasAtom);
+  const [currentLocation, setLocation] =
+    useAtom<beachTypes>(currentLocationAtom);
 
   const deleteCamera = (index: number) => {
     setCameras((prev) => {
-      const newCameras = [...prev];
-      newCameras.splice(index, 1);
-      return newCameras;
+      const currentCams = [...prev[currentLocation]];
+      currentCams.splice(index, 1);
+      return { ...prev, [currentLocation]: currentCams };
     });
   };
+
   const updateCamera = ({
     index,
     url,
@@ -60,9 +67,9 @@ const Player: React.FC<PlayerProps> = ({
     name: string;
   }) => {
     setCameras((prev) => {
-      const newCameras = [...prev];
-      newCameras[index] = { url, name };
-      return newCameras;
+      const currentCams = [...prev[currentLocation]];
+      currentCams[index] = { url, name };
+      return { ...prev, [currentLocation]: currentCams };
     });
   };
 
@@ -118,6 +125,7 @@ const Player: React.FC<PlayerProps> = ({
   const footer = (
     <div className="player__footer__uncollapsed">
       <Select
+        fullWidth
         value={JSON.stringify({ url, name })}
         onChange={(event) => changeCamera(index, event.target.value as string)}
       >
@@ -144,7 +152,6 @@ const Player: React.FC<PlayerProps> = ({
     <main className="player__content">
       <Fab
         className="player__delete"
-        color="secondary"
         aria-label="remove"
         onClick={deleteHandler}
       >

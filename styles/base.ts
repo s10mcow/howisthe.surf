@@ -88,13 +88,13 @@ export default css`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-
     box-shadow: 0 27px 55px 0 rgba(0, 0, 0, 0.3),
       0 17px 17px 0 rgba(0, 0, 0, 0.15);
     position: relative;
 
     &:hover {
       .player__delete {
+        background-color: red;
         transform: translateX(0);
         opacity: 1;
       }

@@ -1,3 +1,7 @@
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import MenuIcon from "@mui/icons-material/Menu";
+import PhotoLibraryIcon from "@mui/icons-material/PhotoLibrary";
 import AppBar from "@mui/material/AppBar";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
@@ -8,23 +12,19 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
 import { makeStyles } from "@mui/styles";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import MenuIcon from "@mui/icons-material/Menu";
-import PhotoLibraryIcon from "@mui/icons-material/PhotoLibrary";
-import React from "react";
+import React, { useEffect } from "react";
 
-import { Avatar } from "@mui/material";
-import { CameraAlt, Check } from "@mui/icons-material";
 import styled from "@emotion/styled";
+import { CameraAlt, Check } from "@mui/icons-material";
+import { Avatar } from "@mui/material";
 
 import { currentLocationAtom } from "@/atoms/beaches";
-import { userAtom } from "@/atoms/user";
+import { camerasAtom } from "@/atoms/cameras";
+import { useUser } from "@auth0/nextjs-auth0/client";
 import { useAtom } from "jotai";
+import NextImage from "next/image";
 import { useRouter } from "next/router";
 import logo from "./logo.png";
-import NextImage from "next/image";
-import { useUser } from "@auth0/nextjs-auth0/client";
 
 const LogoText = styled.div`
   font-family: "Roboto", cursive;
@@ -66,9 +66,7 @@ const useDrawerStyles = makeStyles({
 export default function MenuAppBar() {
   const classes = useStyles();
   const [isOpen, toggleOpen] = React.useState(false);
-
   const [currentLocation, setLocation] = useAtom(currentLocationAtom);
-
   const drawerClasses = useDrawerStyles();
   const router = useRouter();
   const { user, isLoading, error } = useUser();

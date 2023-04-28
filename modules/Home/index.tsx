@@ -7,7 +7,11 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import { useEffect, useState } from "react";
 
-import { getCurrentBeachesAtom } from "@/atoms/beaches";
+import {
+  beachTypes,
+  currentLocationAtom,
+  getCurrentBeachesAtom,
+} from "@/atoms/beaches";
 import { camerasAtom } from "@/atoms/cameras";
 import { ForecastWidget } from "@components/ForecastWidget";
 import { useAtom } from "jotai";
@@ -15,16 +19,21 @@ import { useRouter } from "next/router";
 
 export default function Home() {
   const [cameras, setCameras] = useAtom(camerasAtom);
-  const players = cameras.length === 1 ? "players players--single" : "players";
+  const [currentLocation, setLocation] =
+    useAtom<beachTypes>(currentLocationAtom);
+
+  const players =
+    cameras?.[currentLocation].length === 1
+      ? "players players--single"
+      : "players";
   const [open, setOpen] = useState(true);
   const router = useRouter();
   const [showModal, setShowModal] = useState(false);
-
   const [beaches] = useAtom(getCurrentBeachesAtom);
 
   //@ts-ignore
   const setSelectedFeedback = (selectedFeedback) => true;
-  //dispatch(actions.setSelectedFeedback.trigger(selectedFeedback));
+
   //@ts-ignore
   const showFeedbackInPlayer = (name) => {
     setSelectedFeedback(name);
@@ -43,7 +52,10 @@ export default function Home() {
   };
 
   const addNewCamera = () => {
-    setCameras((prev) => [...prev, beaches[0]]);
+    setCameras((prev) => {
+      const current = [...prev[currentLocation], beaches[0]];
+      return { ...prev, [currentLocation]: current };
+    });
   };
 
   useEffect(() => {
@@ -78,7 +90,7 @@ export default function Home() {
           </DialogActions>
         </Dialog>
         <section className={players}>
-          {cameras.map((camera, index) => (
+          {cameras?.[currentLocation]?.map((camera, index) => (
             <Player
               key={index}
               index={index}

@@ -1,7 +1,7 @@
 import beaches from "@/beaches";
 import { atom } from "jotai";
 
-type beachTypes = "fl" | "pt" | "es" | "fr" | "uk";
+export type beachTypes = "fl" | "pt" | "es" | "fr" | "uk";
 
 export const currentLocationAtom = atom<beachTypes>("fl");
 
