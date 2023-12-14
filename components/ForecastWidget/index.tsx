@@ -11,7 +11,7 @@ const ForecastWidgetContainer = styled.div`
 
 export const ForecastWidget = () => {
   const [widgetHtml, setWidgetHtml] = React.useState("<div></div>");
-  const slug = "flagler-beach-florida";
+  const slug = "flagler-beach-surf florida";
   useEffect(() => {
     const robotoHref =
       "https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap";
@@ -29,14 +29,14 @@ export const ForecastWidget = () => {
       link.setAttribute("rel", "stylesheet");
       link.setAttribute(
         "href",
-        "https://surfcaptain.com/css/widget_forecast.css"
+        "https://surfcaptain.com/css/widget_forecast.css",
       );
       document.head.appendChild(link);
     }
 
     //determine if mobile device
     const androidOrIphoneDevice = /Android|iPhone|iPod/i.test(
-      navigator.userAgent
+      navigator.userAgent,
     )
       ? "true"
       : "false";
@@ -52,7 +52,7 @@ export const ForecastWidget = () => {
           Accept: "application/json",
           "Content-Type": "application/json;charset=UTF-8",
         },
-      }
+      },
     )
       .then((response) => {
         if (!response.ok) {

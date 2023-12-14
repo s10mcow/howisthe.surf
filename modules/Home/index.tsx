@@ -37,7 +37,7 @@ export default function Home() {
   const setSelectedFeedback = (selectedFeedback) => true;
 
   //@ts-ignore
-  const showFeedbackInPlayer = (name) => {
+  const showFeedInPlayer = (name) => {
     setSelectedFeedback(name);
     router.push("/feedback");
   };
@@ -102,11 +102,16 @@ export default function Home() {
               name={camera.name}
               url={camera.url}
               beachNames={beaches}
-              showFeedback={showFeedbackInPlayer}
+              showFeed={showFeedInPlayer}
             />
           ))}
         </section>
-        <Button color="primary" onClick={addNewCamera}>
+        <Button
+          sx={{ mt: 2, mb: 2 }}
+          size="large"
+          variant="contained"
+          onClick={addNewCamera}
+        >
           Add Camera
         </Button>
         <ForecastWidget />

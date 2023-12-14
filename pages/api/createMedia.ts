@@ -20,10 +20,11 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const data = req.body;
+  const data = JSON.parse(req.body);
   const mediaItem = { data };
+  console.log("mediaItem", mediaItem);
   const response = await client
-    .query(q.Create(q.Ref("classes/media"), mediaItem))
+    .query(q.Create(q.Collection("media"), mediaItem))
     .then((response) => response)
     .catch((error) => {
       console.log("error", error);

@@ -16,6 +16,7 @@ import {
   currentLocationAtom,
   getCurrentBeachesAtom,
 } from "@/atoms/beaches";
+import { useRouter } from "next/router";
 interface Beach {
   url: string;
   name: string;
@@ -26,7 +27,7 @@ interface PlayerProps {
   name: string;
   index: number;
   beachNames: Beach[];
-  showFeedback: (name: string) => void;
+  showFeed: (name: string) => void;
 }
 
 const StyledMenuItem = styled(MenuItem)`
@@ -35,20 +36,14 @@ const StyledMenuItem = styled(MenuItem)`
   }
 `;
 
-const Player: React.FC<PlayerProps> = ({
-  url,
-  name,
-  index,
-  beachNames,
-  showFeedback,
-}) => {
+const Player: React.FC<PlayerProps> = ({ url, name, index, beachNames }) => {
   const [hlsInstance, setHlsInstance] = useState<Hls | null>(null);
   const [showError, setShowError] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [_, setCameras] = useAtom(camerasAtom);
   const [currentLocation, setLocation] =
     useAtom<beachTypes>(currentLocationAtom);
-
+  const router = useRouter();
   const deleteCamera = (index: number) => {
     setCameras((prev) => {
       const currentCams = [...prev[currentLocation]];
@@ -160,13 +155,16 @@ const Player: React.FC<PlayerProps> = ({
       <video ref={videoRef} autoPlay controls />
     </main>
   );
+
+  const goToFeed = (name: string) => {
+    router.push(`/feed?name=${name}`);
+  };
+
   return (
     <Card className="player">
       {playerContent}
       <CardActions className="player__footer">{footer}</CardActions>
-      <Button color="secondary" onClick={() => showFeedback(name)}>
-        How was it?
-      </Button>
+      <Button onClick={() => goToFeed(name)}>How was it?</Button>
     </Card>
   );
 };

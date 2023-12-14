@@ -44,7 +44,7 @@ const MediaItem = styled.div`
   height: 100%;
 `;
 
-const FeedbackDetail = styled.div`
+const FeedDetail = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -58,7 +58,7 @@ export default function FeedbackDialog() {
   return (
     <>
       <Appbar />
-      <FeedbackDetail>
+      <FeedDetail>
         <MediaItem style={{ position: "relative" }}>
           <Card className={classes.card}>
             <CardHeader
@@ -75,7 +75,7 @@ export default function FeedbackDialog() {
             alt="Howisthe.surf"
           /> */}
         </MediaItem>
-      </FeedbackDetail>
+      </FeedDetail>
     </>
   );
 }

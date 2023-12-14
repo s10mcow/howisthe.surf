@@ -27,7 +27,7 @@ import { useRouter } from "next/router";
 import logo from "./logo.png";
 
 const LogoText = styled.div`
-  font-family: "Roboto", cursive;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   cursor: pointer;
 `;
 
@@ -111,7 +111,7 @@ export default function MenuAppBar() {
                 <ListItemText primary={"Profile"} />
               </ListItem>
             )}
-            <ListItem button onClick={() => router.push("/feedback")}>
+            <ListItem button onClick={() => router.push("/feed")}>
               <ListItemIcon>
                 <PhotoLibraryIcon />
               </ListItemIcon>

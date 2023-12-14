@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Feedback from "@modules/Feedback";
+import Feed from "@/modules/Feed";
 import { makeStyles } from "@mui/styles";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
@@ -22,7 +22,7 @@ export default function FeedbackDialog() {
   return (
     <Dialog fullScreen open={true} onClose={closeFeedback}>
       <DialogContent className={classes.dialog}>
-        <Feedback name={"sten"} toggle={closeFeedback} />
+        <Feed name={"sten"} toggle={closeFeedback} />
       </DialogContent>
     </Dialog>
   );

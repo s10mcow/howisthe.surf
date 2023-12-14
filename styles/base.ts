@@ -1,6 +1,15 @@
 import { css } from "@emotion/react";
 
 export default css`
+  @import url("https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap");
+  @import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+  @import url("https://fonts.googleapis.com/css?family=Lacquer&display=swap");
+
+  @font-face {
+    font-family: "Roboto";
+    src: url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+  }
+
   html {
     overflow-x: hidden;
   }
@@ -11,7 +20,7 @@ export default css`
     align-items: center;
     flex-direction: column;
     min-height: 100vh;
-    font-family: "Roboto", sans-serif;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
     margin: 0;
   }
 
