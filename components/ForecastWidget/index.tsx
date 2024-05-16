@@ -11,7 +11,7 @@ const ForecastWidgetContainer = styled.div`
 
 export const ForecastWidget = () => {
   const [widgetHtml, setWidgetHtml] = React.useState("<div></div>");
-  const slug = "flagler-beach-surf florida";
+  const slug = "flagler-beach-florida";
   useEffect(() => {
     const robotoHref =
       "https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap";
