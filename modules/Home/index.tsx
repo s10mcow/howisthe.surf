@@ -32,7 +32,7 @@ export default function Home() {
   const [showModal, setShowModal] = useState(false);
   const [beaches] = useAtom(getCurrentBeachesAtom);
   const [isModalShown, setShownModal] = useAtom(showModalAtom);
-
+  const [count, setCount] = useState(0);
 
   //@ts-ignore
   const setSelectedFeedback = (selectedFeedback) => true;
@@ -63,10 +63,11 @@ export default function Home() {
   };
 
   useEffect(() => {
-    if (!isModalShown) {
-      setOpen(cameras?.[currentLocation].length === 2);
+
+    if (!isModalShown || count <=3) {
+      setOpen(count === 1 || count === 3 );
     }
-  }, [cameras, currentLocation, isModalShown, setShownModal]);
+  }, [count]);
 
   return (
     <>
@@ -104,6 +105,7 @@ export default function Home() {
               url={camera.url}
               beachNames={beaches}
               showFeed={showFeedInPlayer}
+              onChange={() => setCount((prev) => prev + 1)}
             />
           ))}
         </section>

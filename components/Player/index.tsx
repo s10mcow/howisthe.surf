@@ -28,6 +28,7 @@ interface PlayerProps {
   index: number;
   beachNames: Beach[];
   showFeed: (name: string) => void;
+  onChange: () => void;
 }
 
 const StyledMenuItem = styled(MenuItem)`
@@ -36,7 +37,7 @@ const StyledMenuItem = styled(MenuItem)`
   }
 `;
 
-const Player: React.FC<PlayerProps> = ({ url, name, index, beachNames }) => {
+const Player: React.FC<PlayerProps> = ({ url, name, index, beachNames, onChange }) => {
   const [hlsInstance, setHlsInstance] = useState<Hls | null>(null);
   const [showError, setShowError] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -109,6 +110,7 @@ const Player: React.FC<PlayerProps> = ({ url, name, index, beachNames }) => {
     } else {
       const { url, name } = JSON.parse(camera);
       updateCamera({ index, url, name });
+      onChange();
       ReactGA.event({
         category: "Camera Player",
         action: "Change Camera",
