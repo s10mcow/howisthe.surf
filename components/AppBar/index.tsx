@@ -203,41 +203,41 @@ export default function MenuAppBar() {
             >
               <NextImage src={logo} alt="logo" width="40" height="40" />
             </IconButton>
-            <LogoText onClick={() => router.push("/")}>howisthe.surf</LogoText>
-            {user ? (
-              <IconButton
-                style={{ marginLeft: "auto" }}
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={() => toggleOpen(!isOpen)}
-                color="inherit"
-              >
-                {user?.picture ? (
-                  <Avatar>
-                    <NextImage
-                      src={user?.picture}
-                      width="40"
-                      height="40"
-                      alt="profile picture"
-                    />
-                  </Avatar>
-                ) : (
-                  <AccountCircleIcon />
-                )}
-              </IconButton>
-            ) : (
-              <IconButton
-                style={{ marginLeft: "auto" }}
-                aria-label="menu"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={() => toggleOpen(!isOpen)}
-                color="inherit"
-              >
-                {currentLocation === "fl" ? <MenuIcon /> : <MenuIcon />}
-              </IconButton>
-            )}
+            {/*<LogoText onClick={() => router.push("/")}>howisthe.surf</LogoText>*/}
+            {/*{user ? (*/}
+            {/*  <IconButton*/}
+            {/*    style={{ marginLeft: "auto" }}*/}
+            {/*    aria-label="account of current user"*/}
+            {/*    aria-controls="menu-appbar"*/}
+            {/*    aria-haspopup="true"*/}
+            {/*    onClick={() => toggleOpen(!isOpen)}*/}
+            {/*    color="inherit"*/}
+            {/*  >*/}
+            {/*    {user?.picture ? (*/}
+            {/*      <Avatar>*/}
+            {/*        <NextImage*/}
+            {/*          src={user?.picture}*/}
+            {/*          width="40"*/}
+            {/*          height="40"*/}
+            {/*          alt="profile picture"*/}
+            {/*        />*/}
+            {/*      </Avatar>*/}
+            {/*    ) : (*/}
+            {/*      <AccountCircleIcon />*/}
+            {/*    )}*/}
+            {/*  </IconButton>*/}
+            {/*) : (*/}
+            {/*  <IconButton*/}
+            {/*    style={{ marginLeft: "auto" }}*/}
+            {/*    aria-label="menu"*/}
+            {/*    aria-controls="menu-appbar"*/}
+            {/*    aria-haspopup="true"*/}
+            {/*    onClick={() => toggleOpen(!isOpen)}*/}
+            {/*    color="inherit"*/}
+            {/*  >*/}
+            {/*    {currentLocation === "fl" ? <MenuIcon /> : <MenuIcon />}*/}
+            {/*  </IconButton>*/}
+            {/*)}*/}
           </Toolbar>
         </AppBar>
       </div>

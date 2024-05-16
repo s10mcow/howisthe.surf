@@ -164,7 +164,7 @@ const Player: React.FC<PlayerProps> = ({ url, name, index, beachNames }) => {
     <Card className="player">
       {playerContent}
       <CardActions className="player__footer">{footer}</CardActions>
-      <Button onClick={() => goToFeed(name)}>How was it?</Button>
+      {/*<Button onClick={() => goToFeed(name)}>How was it?</Button>*/}
     </Card>
   );
 };
