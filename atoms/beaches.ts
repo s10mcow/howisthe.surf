@@ -5,6 +5,8 @@ export type beachTypes = "fl" | "pt" | "es" | "fr" | "uk";
 
 export const currentLocationAtom = atom<beachTypes>("fl");
 
-export const getCurrentBeachesAtom = atom(
-  (get) => beaches?.[get(currentLocationAtom)].beaches
+export const getCurrentBeachesAtom = atom(get =>
+  beaches?.[get(currentLocationAtom)].beaches.sort((a, b) =>
+    a.name.localeCompare(b.name)
+  )
 );

@@ -29,7 +29,6 @@ export default function Home() {
       : "players";
   const [open, setOpen] = useState(true);
   const router = useRouter();
-  const [showModal, setShowModal] = useState(false);
   const [beaches] = useAtom(getCurrentBeachesAtom);
   const [isModalShown, setShownModal] = useAtom(showModalAtom);
   const [count, setCount] = useState(0);
