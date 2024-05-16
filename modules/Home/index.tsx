@@ -33,6 +33,7 @@ export default function Home() {
   const [beaches] = useAtom(getCurrentBeachesAtom);
   const [isModalShown, setShownModal] = useAtom(showModalAtom);
 
+
   //@ts-ignore
   const setSelectedFeedback = (selectedFeedback) => true;
 
@@ -114,7 +115,7 @@ export default function Home() {
         >
           Add Camera
         </Button>
-        <ForecastWidget />
+        {currentLocation === 'fl' && <ForecastWidget />}
       </div>
     </>
   );
