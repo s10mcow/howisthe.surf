@@ -137,6 +137,10 @@ export const pt = {
       name: "Faro (SurfTotal)",
       url:
         "https://59775c8bd0cf7.streamlock.net/live/ilhadefaro.stream/playlist.m3u8?wowzatokenendtime=1715879316&wowzatokenstarttime=1715879076&wowzatokenhash=KlBohZs7dvnclTzSb8IQ28qPBMxlc6w9vTsn6brZYS0="
+    },
+    {
+      name: "Faro (BeachCam)",
+      url: "https://video-auth1.iol.pt/beachcam/bcfaro/playlist.m3u8"
     }
   ]
 };
