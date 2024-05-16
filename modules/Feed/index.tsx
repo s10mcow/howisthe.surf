@@ -64,6 +64,7 @@ const Feed = ({ toggle }) => {
           <CircularProgress />
         ) : (
           <MediaList>
+            {/* @ts-ignore  */}
             {media?.map(({ data }) =>
               //@ts-ignore
               data.resource_type === "image" ? (
